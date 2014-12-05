@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">My Application</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <string-array name="fake_tweets">
+        <item>George</item>
+        <item>Zubin</item>
+        <item>Carlos</item>
+        <item>Frank</item>
+        <item>Charles</item>
+        <item>Simon</item>
+        <item>Fezra</item>
+        <item>Henry</item>
+        <item>Schuster</item>
+    </string-array>
+
+</resources>
