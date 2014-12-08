@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">SwipeRefreshLayout Demo</string>
+    <string name="app_name">Cat Names</string>
     <string name="action_settings">Settings</string>
 
-    <string-array name="fake_tweets">
+    <string-array name="cat_names">
         <item>George</item>
         <item>Zubin</item>
         <item>Carlos</item>
