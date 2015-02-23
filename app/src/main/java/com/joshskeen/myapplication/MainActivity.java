@@ -4,21 +4,15 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 
 
 public class MainActivity extends Activity {
 
     private SwipeRefreshLayout mSwipeRefreshLayout;
-    private ListView mListView;
-    private ArrayAdapter<String> mAdapter;
-    private List<String> mCatNames;
+    private RecyclerView mRecyclerView;
+    private CatNamesRecyclerViewAdapter mCatNamesRecyclerViewAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,10 +20,11 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.activity_main_swipe_refresh_layout);
-        mListView = (ListView) findViewById(R.id.activity_main_listview);
-        mCatNames = Arrays.asList(getResources().getStringArray(R.array.cat_names));
-        mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, mCatNames);
-        mListView.setAdapter(mAdapter);
+        mRecyclerView = (RecyclerView) findViewById(R.id.activity_main_recyclerview);
+        final LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(layoutManager);
+        setupAdapter();
+
         mSwipeRefreshLayout.setColorSchemeResources(R.color.orange, R.color.green, R.color.blue);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -37,8 +32,7 @@ public class MainActivity extends Activity {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        mAdapter = new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_list_item_1, getNewCatNames());
-                        mListView.setAdapter(mAdapter);
+                        setupAdapter();
                         mSwipeRefreshLayout.setRefreshing(false);
                     }
                 }, 2500);
@@ -46,13 +40,9 @@ public class MainActivity extends Activity {
         });
     }
 
-    private List<String> getNewCatNames() {
-        List<String> newCatNames = new ArrayList<String>();
-        for (int i = 0; i < mCatNames.size(); i++) {
-            int randomCatNameIndex = new Random().nextInt(mCatNames.size() - 1);
-            newCatNames.add(mCatNames.get(randomCatNameIndex));
-        }
-        return newCatNames;
+    private void setupAdapter() {
+        mCatNamesRecyclerViewAdapter = new CatNamesRecyclerViewAdapter(this);
+        mRecyclerView.setAdapter(mCatNamesRecyclerViewAdapter);
     }
 
 }
